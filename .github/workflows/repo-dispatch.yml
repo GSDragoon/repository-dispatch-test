@@ -17,20 +17,21 @@ jobs:
     steps:
 
     # https://docs.github.com/en/webhooks/webhook-events-and-payloads#repository_dispatch
-    - name: 'Echo github event'
+    - name: Echo GitHub event
       run: |
-        echo 'Raw:'
-        echo "${{ github.event }}"
-        echo 'JSON:'
-        echo "${{ toJson(github.event) }}"
+        echo 'github.event:'
+        echo '${{ toJson(github.event) }}'
 
-    - name: 'Echo client_payload'
+    - name: Echo Webhook payload object for repository_dispatch
       run: |
-        echo 'Raw:'
-        echo "${{ github.event.client_payload }}"
-        echo 'JSON:'
-        echo "${{ toJson(github.event.client_payload) }}"
-        echo 'Value1:'
-        echo "${{ github.event.client_payload.value1 }}"
-        echo 'Value2:'
-        echo "${{ github.event.client_payload.value2 }}"
+        echo 'github.event.action (event_type): ${{ github.event.action }}'
+        echo 'github.event.branch: ${{ toJson(github.event.branch) }}'
+        echo 'github.event.repository (caller): ${{ toJson(github.event.repository) }}'
+        echo 'github.event.sender (PAT user): ${{ toJson(github.event.sender ) }}'
+
+    - name: Echo client_payload
+      run: |
+        echo 'github.event.client_payload:'
+        echo '${{ toJson(github.event.client_payload) }}'
+        echo 'github.event.client_payload.value1: ${{ github.event.client_payload.value1 }}'
+        echo 'github.event.client_payload.value2: ${{ github.event.client_payload.value2 }}'
