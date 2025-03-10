@@ -26,7 +26,6 @@ jobs:
       run: |
         echo 'github.event.action (event_type): ${{ github.event.action }}'
         echo 'github.event.branch: ${{ toJson(github.event.branch) }}'
-        echo 'github.event.repository (caller): ${{ toJson(github.event.repository) }}'
         echo 'github.event.sender (PAT user): ${{ toJson(github.event.sender ) }}'
 
     - name: Echo client_payload
