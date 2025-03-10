@@ -14,6 +14,9 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    concurrency:
+      group: static # One at a time no matter what user or repo triggers it
+      cancel-in-progress: false
     steps:
 
     # https://docs.github.com/en/webhooks/webhook-events-and-payloads#repository_dispatch
