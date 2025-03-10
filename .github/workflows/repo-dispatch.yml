@@ -1,0 +1,36 @@
+name: Test
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [test-type-1, test-type-2]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+
+    # https://docs.github.com/en/webhooks/webhook-events-and-payloads#repository_dispatch
+    - name: 'Echo github event'
+      run: |
+        echo 'Raw:'
+        echo "${{ github.event }}"
+        echo 'JSON:'
+        echo "${{ toJson(github.event) }}"
+
+    - name: 'Echo client_payload'
+      run: |
+        echo: 'Raw:'
+        echo "${{ github.event.client_payload }}"
+        echo: JSON:'
+        echo "${{ toJson(github.event.client_payload) }}"
+        echo 'Value1:'
+        echo "${{ github.event.client_payload.value1 }}"
+        echo 'Value2:'
+        echo "${{ github.event.client_payload.value2 }}"
