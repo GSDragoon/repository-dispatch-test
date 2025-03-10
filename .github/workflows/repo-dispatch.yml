@@ -26,9 +26,9 @@ jobs:
 
     - name: 'Echo client_payload'
       run: |
-        echo: 'Raw:'
+        echo 'Raw:'
         echo "${{ github.event.client_payload }}"
-        echo: JSON:'
+        echo 'JSON:'
         echo "${{ toJson(github.event.client_payload) }}"
         echo 'Value1:'
         echo "${{ github.event.client_payload.value1 }}"
