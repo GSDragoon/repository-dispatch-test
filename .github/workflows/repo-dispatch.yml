@@ -37,3 +37,10 @@ jobs:
         echo '${{ toJson(github.event.client_payload) }}'
         echo 'github.event.client_payload.value1: ${{ github.event.client_payload.value1 }}'
         echo 'github.event.client_payload.value2: ${{ github.event.client_payload.value2 }}'
+
+    - name: Run Task
+      run: |
+        echo 'Running Task'
+        # Simulate a long running task
+        sleep 60
+        echo 'Task completed'
