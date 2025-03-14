@@ -1,0 +1,27 @@
+name: Run Task
+
+on:
+  workflow_call:
+    # Inputs from the repository_dispatch event from the calling repository
+    inputs:
+      value1:
+        type: string
+        required: true
+        description: 'Value 1'
+      value2:
+        type: string
+        required: true
+        description: 'Value 2'
+
+jobs:
+  run-task:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Task
+        run: |
+          echo 'Running Task'
+          echo "Value 1: ${{ inputs.value1 }}"
+          echo "Value 2: ${{ inputs.value2 }}"
+          echo 'Simulating a long running task...'
+          sleep 60
+          echo 'Task completed'
