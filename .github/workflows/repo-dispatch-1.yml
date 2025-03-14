@@ -1,10 +1,10 @@
-name: Test
+name: Test 1
 
 # https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch
 on:
   workflow_dispatch:
   repository_dispatch:
-    types: [test-type-1, test-type-2]
+    types: [test-type-1]
 
 permissions:
   checks: write
@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  test-job:
     runs-on: ubuntu-latest
     concurrency:
       group: static # One at a time no matter what user or repo triggers it

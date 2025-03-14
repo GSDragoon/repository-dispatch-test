@@ -1,0 +1,46 @@
+name: Test 2
+
+# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [test-type-2]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    concurrency:
+      group: static # One at a time no matter what user or repo triggers it
+      cancel-in-progress: false
+    steps:
+
+    # https://docs.github.com/en/webhooks/webhook-events-and-payloads#repository_dispatch
+    - name: Echo GitHub event
+      run: |
+        echo 'github.event:'
+        echo '${{ toJson(github.event) }}'
+
+    - name: Echo Webhook payload object for repository_dispatch
+      run: |
+        echo 'github.event.action (event_type): ${{ github.event.action }}'
+        echo 'github.event.branch: ${{ toJson(github.event.branch) }}'
+        echo 'github.event.sender (PAT user): ${{ toJson(github.event.sender ) }}'
+
+    - name: Echo client_payload
+      run: |
+        echo 'github.event.client_payload:'
+        echo '${{ toJson(github.event.client_payload) }}'
+        echo 'github.event.client_payload.value1: ${{ github.event.client_payload.value1 }}'
+        echo 'github.event.client_payload.value2: ${{ github.event.client_payload.value2 }}'
+
+    - name: Run Task
+      run: |
+        echo 'Running Task'
+        # Simulate a long running task
+        sleep 60
+        echo 'Task completed'
